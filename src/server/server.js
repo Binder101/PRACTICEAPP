@@ -66,12 +66,17 @@ app.post('/signup', async(req,res)=>{
 })
 
 app.post('/login', async(req,res)=>{
-    const member = JSON.stringify({
+    const member = {
         username : req.body.username,
         password : calculateHash(req.body.password)
-    });
+    };
+    console.log(member);
     try{
-        const found = await Members.findOne({ member });
+        const found = await Members.findOne({ 
+            username : member.username,
+            password : member.password
+         });
+        console.log(found);
         if(found) res.json({message : "Logged in Successfully"});
         else res.status(401).json({ message : "Unauthorized"});
     } catch(error){
