@@ -1,5 +1,6 @@
 import { useState, useNavigate } from 'react';
-import '../index.css';
+import './StylingFiles/index.css';
+import Appbar from './Appbar.jsx';
 
 function Login(){
     const [username, setUsername] = useState()
@@ -7,6 +8,7 @@ function Login(){
 
     return (
         <>
+        <Appbar/>
         <div class = 'login-container'>
             <form class = 'login-form'>
                 <h2>LOGIN</h2>

@@ -5,19 +5,24 @@
 }
 
 body{
-    font-family : 'Poppins', sans-serif;
-    background: linear-gradient(120deg, #84fab0, #8fd3f4);
     display : flex;
-    justify-content : center;
-    align-items : center; 
+    margin-left : 300px;
+    margin-top: 300px;
     height : 100vh;
+    background-color: bisque;
+    background-image: url('https://pplx-res.cloudinary.com/image/upload/v1741967961/ai_generated_images/pux0cnmo0cs1hyqxp7d3.png');
+    background-size : cover;
+    background-position : center;
 }
 
 .login-container{
+    display : flex;
+    justify-content: center;
+    align-items : center;
     width: 100%;
     max-width : 400px;
     padding : 20px;
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgba(255,255,234,0.3);
     border-radius : 10px;
     box-shadow : 0px 4px 6px rgba(0,0,0,1);
 }
@@ -37,7 +42,7 @@ body{
 
 .login-form input:focus{
     outline : none;
-    background-color: #e8f0fe;
+    background-color: rgba(26, 26, 25, 0.4);
 }
 .login-form button {
     width: calc(100% - 20px);
@@ -50,13 +55,13 @@ body{
 
 .login-form button:hover {
     background-color: #028a50;
-  }
+}
   
-  .forgot-password {
+.forgot-password {
     text-align: center;
     margin-top : 5px;
-  }
+}
   
-  .forgot-password a {
+.forgot-password a {
     color: #04AA6D;
-  }
+}
