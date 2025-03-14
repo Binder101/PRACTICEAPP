@@ -66,17 +66,16 @@ app.post('/signup', async(req,res)=>{
 })
 
 app.post('/login', async(req,res)=>{
-    const member = {
-        username : req.body.username,
-        password : calculateHash(req.body.password)
-    };
-    console.log(member);
     try{
+        const member = {
+            username : req.body.username,
+            password : calculateHash(req.body.password)
+        };
         const found = await Members.findOne({ 
             username : member.username,
             password : member.password
          });
-        console.log(found);
+
         if(found) res.json({message : "Logged in Successfully"});
         else res.status(401).json({ message : "Unauthorized"});
     } catch(error){
@@ -100,9 +99,9 @@ app.get(`/products`, async(req, res)=>{
 })
 
 app.get(`/products/:id`, async(req,res)=>{
-    const _id = mongoose.Types.ObjectId(req.params.id);
-    console.log(`id : ${_id}`);
     try{
+        const _id = mongoose.Types.ObjectId(req.params.id);
+        console.log(`id : ${_id}`);
         const product = await Product.findById(_id);
         if(product){
             res.json({message : product});
@@ -116,13 +115,13 @@ app.get(`/products/:id`, async(req,res)=>{
 })
 
 app.post(`/postProducts`, async(req, res)=>{
-    const product = {
-        _name : req.body._name,
-        description : req.body.description,
-        rating : req.body.rating,
-        price : req.body.price
-    };
     try{
+        const product = {
+            _name : req.body._name,
+            description : req.body.description,
+            rating : req.body.rating,
+            price : req.body.price
+        };
         const newProduct = new Product(product);
         await newProduct.save();
         res.json({message : "Product added"});
