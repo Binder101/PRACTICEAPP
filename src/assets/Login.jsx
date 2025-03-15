@@ -1,5 +1,5 @@
 import { useState, useNavigate } from 'react';
-import './StylingFiles/index.css';
+import './StylingFiles/login.css';
 import Appbar from './Appbar.jsx';
 
 function Login(){

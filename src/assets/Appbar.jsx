@@ -5,7 +5,7 @@ function Appbar(){
     return(
         <>
         <div class = "appbar"> 
-        <div class = "brand-name">Practice App</div>
+        <div class = "brand-name">LaPractica</div>
             <div class = "menu-options">
                 <a href = "#login" class = "menu-item">Login</a>
                 <a href = "#signup" class = "menu-item">Signup</a>

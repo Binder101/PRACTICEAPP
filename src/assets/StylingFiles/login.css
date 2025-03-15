@@ -5,9 +5,7 @@
 }
 
 body{
-    display : flex;
-    margin-left : 300px;
-    margin-top: 300px;
+    display : flex; 
     height : 100vh;
     background-color: bisque;
     background-image: url('https://pplx-res.cloudinary.com/image/upload/v1741967961/ai_generated_images/pux0cnmo0cs1hyqxp7d3.png');
@@ -15,7 +13,37 @@ body{
     background-position : center;
 }
 
+.text-on-landing-page{
+    position : absolute;
+    display : flex;
+    flex-direction : column;
+    top : 230px;
+    left : 90px;
+
+}
+.practice{
+    position : relative;
+    font-size : 90px;
+    color :rgb(255,255,190,0.8)
+}
+
+.equals{
+    position : relative;
+    font-size : 90px;
+    color : rgb(255,255,190, 0.8);
+}
+
+.perfection{
+    position : relative;
+    font-size : 90px;
+    font-family : "Lucida Handwriting", cursive;
+    color : rgba(255,255,190,0.8)
+}
+
 .login-container{
+    position : absolute;
+    top : 34%;
+    left : 37%; 
     display : flex;
     justify-content: center;
     align-items : center;
@@ -63,5 +91,5 @@ body{
 }
   
 .forgot-password a {
-    color: #04AA6D;
+    color: #05031d;
 }
