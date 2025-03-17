@@ -28,6 +28,7 @@ connectDB();
 const productSchema = new mongoose.Schema({
     _name : String,
     description : String,
+    imageLink : String,
     rating : Number,
     price : Number
 })
@@ -119,6 +120,7 @@ app.post(`/postProducts`, async(req, res)=>{
         const product = {
             _name : req.body._name,
             description : req.body.description,
+            imageLink : req.body.imageLink,
             rating : req.body.rating,
             price : req.body.price
         };

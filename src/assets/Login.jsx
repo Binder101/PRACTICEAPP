@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './StylingFiles/login.css';
 import Appbar from './Appbar.jsx';
+import Dashboard from './Dashboard.jsx';
+import { Navigate } from 'react-router-dom';
 
 function Login(){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const handleChangeUsername = (event) => {
         setUsername(event.target.value);
@@ -12,6 +15,9 @@ function Login(){
     const handleChangePass = (event) =>{
         setPassword(event.target.value);
     }
+
+    if(isAuthenticated) return <Navigate to = '/dashboard' replace />
+ 
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -28,7 +34,11 @@ function Login(){
             })
             if(!response.ok) throw new Error(`HTTP Error! Status : ${response.status}`);
             const data = await response.json();
-            console.log(data);
+            if(data) {
+                setIsAuthenticated(true);
+                console.log(data);
+                return <Navigate to='/dashboard' replace />
+            }
         } catch(error){
             console.error(`Error during Login : ${error}`);
         }
@@ -38,7 +48,7 @@ function Login(){
         <>
         <Appbar/>
         <div class = 'login-container'>
-            <form class = 'login-form' onSubmit={handleLogin}>
+            <form class = 'login-form' onSubmit={ handleLogin }>
                 <h2>LOGIN</h2>
                 <input type = 'text' placeholder = 'username' required onChange={ handleChangeUsername }/>
                 <input type = 'password' placeholder = 'password' required onChange={ handleChangePass }/>

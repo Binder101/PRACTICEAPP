@@ -1,17 +1,73 @@
-*{
-    margin : 0px;
-    padding : 0px;
-    border-style : box-border;
-}
-
-body{
-    background-color: azure;
-}
-
-.Grid-For-Products{
-    display : grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap : 20px;
-    padding : 20px;
-}
-
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Fixes the issue with box-sizing */
+  }
+  
+  body {
+    background-color: #f8f9fa; /* Light background for better contrast */
+    font-family: "Arial", sans-serif;
+    color: #333; /* Default text color */
+  }
+  
+  /* Grid Container for Products */
+  .Grid-For-Products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Flexible layout */
+    gap: 20px;
+    padding: 40px;
+  }
+  
+  /* Product Card Styling */
+  .product-card {
+    background-color: #fff; /* White background for cards */
+    border: none; /* Remove default border */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px; /* Subtle shadow for depth */
+    overflow: hidden; /* Ensures content stays within rounded corners */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Hover Effect for Product Cards */
+  .product-card:hover {
+    transform: translateY(-10px); /* Lift the card slightly on hover */
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 12px; /* Stronger shadow on hover */
+  }
+  
+  /* Product Image Styling */
+  .product-card img {
+    width: 100%; /* Make image fill the card width */
+    height: auto;
+  }
+  
+  /* Product Name Styling */
+  .product-card h3 {
+    font-size: 1.2rem;
+    color: #333; /* Darker text for better readability */
+    margin-top: 15px;
+  }
+  
+  /* Product Price Styling */
+  .product-price {
+    font-size: 1rem;
+    color: #28a745; /* Green color for price */
+    font-weight: bold;
+  }
+  
+  /* Product Description Styling */
+  .product-description {
+    font-size: 0.9rem;
+    color: #666; /* Subtle gray color for description text */
+  }
+  
+  /* Product Rating Styling */
+  .product-rating {
+    font-size: 0.9rem;
+  }
+  
+  .product-rating::before {
+      content : "⭐"; 
+      margin-right :5 px
+      }
+  
