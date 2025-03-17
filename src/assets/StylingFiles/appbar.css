@@ -22,6 +22,8 @@
 .brand-name{
     font-size : 1.5rem;
     font-weight : bold;
+    color : white;
+    text-decoration: none; /*By default the Link tags are underlined to remove them we need to use this property*/
 }
 
 .menu-options{

@@ -1,15 +1,18 @@
 import { useState } from "react";
 import './StylingFiles/appbar.css';
+import { useNavigate } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function Appbar(){
+    
     return(
         <>
         <div class = "appbar"> 
-        <div class = "brand-name">LaPractica</div>
+        <Link to = '/' class = "brand-name">LaPractica</Link>
             <div class = "menu-options">
-                <a href = "#login" class = "menu-item">Login</a>
-                <a href = "#signup" class = "menu-item">Signup</a>
-                <a href = "#about" class = "menu-item">About</a>
+                <Link to = '/login' class = "menu-item">Login</Link>
+                <Link to = "/signup" class = "menu-item">Signup</Link>
+                <Link to = "/about" class = "menu-item">About</Link>
             </div>
         </div>
         </>

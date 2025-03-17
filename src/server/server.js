@@ -11,7 +11,7 @@ const app = express(); // Use the express library for creating apis;
 app.use(cors()); // To prevent cross origin response errors;
 app.use(express.json()); 
 
-function calculateHash(value){
+function calculateHash(value) {
     return createHash('sha256').update(value).digest('hex');
 }
 
