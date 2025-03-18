@@ -17,6 +17,7 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Flexible layout */
     gap: 20px;
     padding: 40px;
+    margin-top: 40px;
   }
   
   /* Product Card Styling */
@@ -44,30 +45,52 @@
   /* Product Name Styling */
   .product-card h3 {
     font-size: 1.2rem;
+    padding : 10px;
     color: #333; /* Darker text for better readability */
     margin-top: 15px;
   }
   
   /* Product Price Styling */
   .product-price {
+    padding-left : 10px;
     font-size: 1rem;
-    color: #28a745; /* Green color for price */
+    color : black; /* Green color for price */
     font-weight: bold;
   }
   
   /* Product Description Styling */
   .product-description {
+    padding-left : 10px;
+    padding-top : 4px;
     font-size: 0.9rem;
     color: #666; /* Subtle gray color for description text */
   }
   
   /* Product Rating Styling */
   .product-rating {
+    padding-left : 10px;
     font-size: 0.9rem;
   }
   
   .product-rating::before {
-      content : "⭐"; 
+      content : "⭐ "; 
       margin-right :5 px
       }
   
+  .product-price::before {
+    content : "₹";
+    margin-right : 5px;
+  }
+
+  .add-to-cart{
+    background-color: #ffd814; /* Amazon-like yellow button */
+    border: 1px solid #fcd200; /* Slightly darker border */
+    border-radius: 5px; /* Rounded corners */
+    color: #111; /* Dark text color */
+    font-weight: bold;
+    padding: 8px 12px;
+    cursor: pointer;
+    float : right;
+    margin-right : 20px;
+    margin-bottom : 20px;
+  }

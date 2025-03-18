@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './StylingFiles/dashboard.css'
+import Appbar from './Appbar.jsx';
 
 function Dashboard(){
     const [products, setProducts] = useState([]);
@@ -31,6 +32,7 @@ function Dashboard(){
 
     return(
     <div>
+        <Appbar/>
         {loading && <p className = "LoadingBar">Loading...</p>}
         <div className = "Grid-For-Products">
             {   
@@ -41,10 +43,10 @@ function Dashboard(){
                       <p className="product-price">{product.price}</p>
                       <p className="product-description">{product.description}</p>
                       <p className='product-rating'>{product.rating}</p>
+                      <button className='add-to-cart'>Add to cart</button>
                     </div>
                   ))
             }
-
         </div>
     </div>
 );
