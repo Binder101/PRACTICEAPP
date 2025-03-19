@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './StylingFiles/dashboard.css'
 import Appbar from './Appbar.jsx';
+import LoadingAnimation from './LoadingAnimation.jsx'; 
 
 function Dashboard(){
     const [products, setProducts] = useState([]);
@@ -35,7 +36,7 @@ function Dashboard(){
     return(
     <div>
         <Appbar/>
-        {loading && <p className = "LoadingBar">Loading...</p>}
+        {loading && <LoadingAnimation/>}
         <div className = "Grid-For-Products">
             {   
                 products.map((product) => (

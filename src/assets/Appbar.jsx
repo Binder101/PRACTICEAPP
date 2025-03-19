@@ -5,16 +5,18 @@ import {Link} from "react-router-dom";
 import Button from '@mui/material/Button';
 import { Navigate } from "react-router-dom";
 
+
 function Appbar(){
     const[user, setUser] = useState('');
-    const[shouldNavigate, setShouldNavigate] = false;
+    const[shouldNavigate, setShouldNavigate] = useState(false);
+    const navigate = useNavigate();
 
     const handleLogout = () =>{
         localStorage.removeItem('token');
         setShouldNavigate(true);
     }
     if(shouldNavigate){
-        return <Navigate to = '/' replace />
+        navigate('/', {replace : true});
     }
 
     const check = async() =>{
@@ -29,8 +31,10 @@ function Appbar(){
             })
 
             const data = await response.json();
-            const username = data.username.replace(/\b\w/g, (l) => l.toUpperCase())
-            setUser(username);
+            if(data){
+                const username = data.username.replace(/\b\w/g, (l) => l.toUpperCase())
+                setUser(username);
+            }
         } catch(error){
             console.error(error);
         }
@@ -40,7 +44,7 @@ function Appbar(){
         check();
     }, [])
     
-    if(! user){
+    if(!user){
         return(
             <>
             <div class = "appbar"> 
