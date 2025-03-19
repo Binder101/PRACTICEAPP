@@ -3,10 +3,13 @@ import { mongoose } from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import {createHash} from 'crypto';
+import jwt from "jsonwebtoken";
 
 dotenv.config();
 
 const secret = process.env.secret;
+const passPhrase = process.env.passPhrase;
+
 const app = express(); // Use the express library for creating apis;
 app.use(cors()); // To prevent cross origin response errors;
 app.use(express.json()); 
@@ -41,6 +44,17 @@ const memberSchema = new mongoose.Schema({
 const Product = mongoose.model('Product', productSchema);
 const Members  = mongoose.model('Members', memberSchema);
 
+function authenticateJWT(req, res, next){
+    const head = req.headers.authorization;
+    if(!head) return res.status(404).json({ message : "Authentication header not found" });
+    const token = head.split(" ")[1];
+    if(!token) return  res.status(404).json({ message : "Authentication Token not found" });
+    const decode = jwt.verify(token, passPhrase);
+    if(!decode) return res.status(403).json({ message : "Authentication Failed" });
+    req.user = decode;
+    next();
+}
+    
 app.post('/signup', async(req,res)=>{
     try{
         const member ={
@@ -53,7 +67,9 @@ app.post('/signup', async(req,res)=>{
             if(headerAuth == secret){
                 const newMember = new Members(member);
                 await newMember.save();
-                newMember ? res.json({ message : "New Member created successfully"}) : res.status(403).json({ message : "Couldn't create a new member"});
+                newMember ? res.json({ message : "New Member created successfully",
+                    token : jwt.sign({username : member.username} , passPhrase, {expiresIn : '24H'})
+                }) : res.status(403).json({ message : "Couldn't create a new member"});
             } else {
                 res.status(401).json({ message : "Not authorized to add members"});
             }
@@ -76,8 +92,12 @@ app.post('/login', async(req,res)=>{
             username : member.username,
             password : member.password
          });
-
-        if(found) res.json({message : "Logged in Successfully"});
+        const payload = {username : member.username};
+        if(found) {
+            res.json({message : "Logged in Successfully",
+            token : jwt.sign(payload, passPhrase, {expiresIn : "24h"})
+            })
+        }
         else res.status(401).json({ message : "Unauthorized"});
     } catch(error){
         console.error(error);
@@ -85,7 +105,7 @@ app.post('/login', async(req,res)=>{
     }
 })
 
-app.get(`/products`, async(req, res)=>{
+app.get(`/products`, authenticateJWT, async(req, res)=>{
     try{
         const products = await Product.find({});
         if(products){
@@ -99,7 +119,7 @@ app.get(`/products`, async(req, res)=>{
     }
 })
 
-app.get(`/products/:id`, async(req,res)=>{
+app.get(`/products/:id`, authenticateJWT,  async(req,res)=>{
     try{
         const _id = mongoose.Types.ObjectId(req.params.id);
         console.log(`id : ${_id}`);
@@ -115,7 +135,7 @@ app.get(`/products/:id`, async(req,res)=>{
     }
 })
 
-app.post(`/postProducts`, async(req, res)=>{
+app.post(`/postProducts`, authenticateJWT, async(req, res)=>{
     try{
         const product = {
             _name : req.body._name,
@@ -128,6 +148,15 @@ app.post(`/postProducts`, async(req, res)=>{
         await newProduct.save();
         res.json({message : "Product added"});
     } catch (error){
+        console.error(error);
+        res.status(500).json({message : "Internal Server Error"});
+    }
+})
+
+app.get('/get', authenticateJWT, async(req, res)=>{
+    try{
+        res.json(req.user);
+    } catch(error){
         console.error(error);
         res.status(500).json({message : "Internal Server Error"});
     }

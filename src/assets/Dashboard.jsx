@@ -8,10 +8,12 @@ function Dashboard(){
 
     const fetchProducts = async () => {
         try{
+            const token = localStorage.getItem("token");
             const response = await fetch(`http://localhost:3000/products`, {
                 method : "GET",
                 headers : {
-                    "Content-Type" : "Application/json"
+                    "Content-Type" : "Application/json",
+                    "authorization" : `Bearer ${token}` // this would contain the value we initially sent as the payload during signing
                 }
             });
             if(!response.ok) console.error(`HTTP error : ${response.status}`);

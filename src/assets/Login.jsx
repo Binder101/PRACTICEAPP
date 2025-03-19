@@ -35,9 +35,11 @@ function Login(){
             if(!response.ok) throw new Error(`HTTP Error! Status : ${response.status}`);
             const data = await response.json();
             if(data) {
+                const token = data.token;
+                localStorage.setItem("token", token);
                 setIsAuthenticated(true);
                 console.log(data);
-                return <Navigate to='/dashboard' replace />
+                return <Navigate to ='/dashboard' replace />
             }
         } catch(error){
             console.error(`Error during Login : ${error}`);
