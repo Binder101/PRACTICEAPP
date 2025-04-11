@@ -35,7 +35,6 @@ function Dashboard(){
 
     return(
     <div>
-        <Appbar/>
         {loading && <LoadingAnimation/>}
         <div className = "Grid-For-Products">
             {   
