@@ -5,6 +5,7 @@ import Login from './assets/Login';
 import Landing from './assets/Landing';
 import Appbar from "./assets/Appbar";
 import Dashboard from "./assets/Dashboard";
+import Signup from "./assets/Signup";
 import axios from 'axios';
 
 function App() {
