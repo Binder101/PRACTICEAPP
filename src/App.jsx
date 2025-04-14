@@ -28,13 +28,13 @@ function App() {
     }, [])
     return (
         <Router>
-            <Appbar user = {user} setUser = {setUser}>
-                <Routes>
-                    <Route path = '/' element = {<Landing/>}/>
-                    <Route path = '/login' element = {<Login setUser = {setUser}/>}/>
-                    <Route path = '/dashboard' element = {<Dashboard/>}/>
-                </Routes>
-            </Appbar>
+            <Appbar user = {user} setUser = {setUser}/>
+            <Routes>
+                <Route path = '/' element = {<Landing user = {user} setUser = {setUser}/>}/>
+                <Route path = '/login' element = {<Login setUser = {setUser}/>}/>
+                <Route path = '/signup' element = {<Signup setUser = {setUser}/>}/>
+                <Route path = '/dashboard' element = {<Dashboard/>}/>
+            </Routes>
         </Router>
     )
 }

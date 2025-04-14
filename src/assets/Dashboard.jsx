@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import './StylingFiles/dashboard.css'
-import Appbar from './Appbar.jsx';
 import LoadingAnimation from './LoadingAnimation.jsx'; 
 
 function Dashboard(){
@@ -21,8 +20,7 @@ function Dashboard(){
             const data = await response.json();
             if(data){
                 const value = data.message;
-                setProducts(value);
-                setLoading(false);
+                setTimeout(()=>{ setProducts(value); setLoading(false) },2500);
             }
         } catch (error) {
             console.error(error);

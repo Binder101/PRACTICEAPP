@@ -4,9 +4,10 @@ import Appbar from './Appbar.jsx';
 import Dashboard from './Dashboard.jsx';
 import { Navigate } from 'react-router-dom';
 
-function Login({setUser}){
+function Signup({setUser}){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [token, setToken] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const handleChangeUsername = (event) => {
@@ -15,6 +16,9 @@ function Login({setUser}){
     const handleChangePass = (event) =>{
         setPassword(event.target.value);
     }
+    const handleChangeAuthToken = (event) => {
+        setToken(event.target.value);
+    }
 
     if(isAuthenticated) return <Navigate to = '/dashboard' replace />
  
@@ -22,10 +26,11 @@ function Login({setUser}){
     const handleLogin = async (event) => {
         event.preventDefault();
         try{
-            const response = await fetch(`http://localhost:3000/login`, {
+            const response = await fetch(`http://localhost:3000/signup`, {
                 method : "POST",
                 headers : {
-                    "Content-type" : 'Application/json'
+                    "Content-type" : 'Application/json',
+                    headerAuth : token
                 },
                 body : JSON.stringify({
                     username : username,
@@ -43,7 +48,7 @@ function Login({setUser}){
                 return <Navigate to ='/dashboard' replace />
             }
         } catch(error){
-            console.error(`Error during Login : ${error}`);
+            console.error(`Error during Signup : ${error}`);
         }
     }
 
@@ -53,14 +58,14 @@ function Login({setUser}){
         <div class = 'login-container'>
             <form class = 'login-form' onSubmit={ handleLogin }>
                 <h2>LOGIN</h2>
-                <input type = 'text' placeholder = 'username' required onChange={ handleChangeUsername }/>
-                <input type = 'password' placeholder = 'password' required onChange={ handleChangePass }/>
-                <button type = 'submit'>Login</button>
-                <p class = 'forgot-password'><a href = '#'>Forgot Password ?</a></p>
+                <input type = 'text' placeholder = 'Username' required onChange={ handleChangeUsername }/>
+                <input type = 'password' placeholder = 'Password' required onChange={ handleChangePass }/>
+                <input type = 'password' placeholder = 'Authorization Token' required onChange={ handleChangeAuthToken }/>
+                <button type = 'submit'>Signup</button>
             </form>
         </div>
         </>
     )
 }
 
-export default Login;
+export default Signup;
