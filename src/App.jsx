@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Login from './assets/Login';
@@ -7,9 +7,30 @@ import Appbar from "./assets/Appbar";
 import Dashboard from "./assets/Dashboard";
 import Signup from "./assets/Signup";
 import axios from 'axios';
+import {RecoilRoot, useSetRecoilState} from 'recoil';
+import { userState } from "./store/atoms/user";
 
 function App() {
-    const [user, setUser] = useState(null);
+   
+    return (
+        <RecoilRoot>
+        <Router>
+            <Appbar />
+            <INIT/>
+            <Routes>
+                <Route path = '/' element = {<Landing/>}/>
+                <Route path = '/login' element = {<Login />}/>
+                <Route path = '/signup' element = {<Signup />}/>
+                <Route path = '/dashboard' element = {<Dashboard/>}/>
+            </Routes>
+        </Router>
+        </RecoilRoot>
+    )
+}
+
+function INIT(){
+
+    const setUser= useSetRecoilState(userState);
     const init = async() => {
         const token = localStorage.getItem('token');
         const response = await axios.get('http://localhost:3000/get',{
@@ -20,24 +41,13 @@ function App() {
             const data = await response.json();
             if(data){
                 const username = data.username.replace(/\b\w/g, (l) => l.toUpperCase())
-                setUser(username);
+                setUser({isLoading : false, value : username});
             }
     }
 
     useEffect(()=>{
         init()
     }, [])
-    return (
-        <Router>
-            <Appbar user = {user} setUser = {setUser}/>
-            <Routes>
-                <Route path = '/' element = {<Landing user = {user} setUser = {setUser}/>}/>
-                <Route path = '/login' element = {<Login setUser = {setUser}/>}/>
-                <Route path = '/signup' element = {<Signup setUser = {setUser}/>}/>
-                <Route path = '/dashboard' element = {<Dashboard/>}/>
-            </Routes>
-        </Router>
-    )
 }
 
 export default App;

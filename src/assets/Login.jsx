@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import './StylingFiles/login.css';
-import Appbar from './Appbar.jsx';
-import Dashboard from './Dashboard.jsx';
 import { Navigate } from 'react-router-dom';
+import { userState } from '../store/atoms/user';
+import { useSetRecoilState } from 'recoil';
 
-function Login({setUser}){
+function Login(){
+    const setUser = useSetRecoilState(userState);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,7 +18,6 @@ function Login({setUser}){
     }
 
     if(isAuthenticated) return <Navigate to = '/dashboard' replace />
- 
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -37,8 +37,8 @@ function Login({setUser}){
             if(data) {
                 const token = data.token;
                 localStorage.setItem("token", token);
+                setUser({ isLoading : false, value : username});
                 setIsAuthenticated(true);
-                setUser(username);
                 console.log(data);
                 return <Navigate to ='/dashboard' replace />
             }
@@ -49,7 +49,7 @@ function Login({setUser}){
 
     return (
         <>
-        {/* <Appbar/> */}
+
         <div class = 'login-container'>
             <form class = 'login-form' onSubmit={ handleLogin }>
                 <h2>LOGIN</h2>
